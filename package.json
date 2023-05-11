@@ -9,15 +9,18 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^18.0.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "assets": "^3.0.1",
     "email-validator": "^2.0.4",
     "expo": "~48.0.15",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
+    "metro-core": "^0.76.4",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -28,8 +31,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-web": "~0.18.10",
     "react-navigation": "^4.4.4",
-    "tailwindcss-react-native": "^1.7.10",
-    "@expo/vector-icons": "^13.0.0"
+    "tailwindcss-react-native": "^1.7.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
