@@ -3,11 +3,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import LoginScreen from "../src/screens/login";
-import ChatListScreen from "../src/screens/ChatList";
-import ChatSettings from "../src/screens/ChatSettings";
-import Settings from "../src/screens/Settings";
-import ChatScreen from "../src/screens/ChatScreen";
+import LoginScreen from "../screens/login";
+import ChatListScreen from "../screens/ChatList";
+import ChatSettings from "../screens/ChatSettings";
+import Settings from "../screens/Settings";
+import ChatScreen from "../screens/ChatScreen";
 
 const stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, ImageBackground } from 'react-native';
 
-import backgroundImage from '../background.jpeg';
+import backgroundImage from '../assets/images/background.jpeg';
 
 const ChatScreen = props => {
-    
+
     return (
         <View style={styles.container}>
             <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
