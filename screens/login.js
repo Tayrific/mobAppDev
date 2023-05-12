@@ -8,7 +8,7 @@ import {
   Button,
 } from "react-native";
 
-import { SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import * as EmailValidator from "email-validator";
 import { useNavigation } from "@react-navigation/native";
@@ -64,64 +64,64 @@ export default class LoginScreen extends Component {
     return (
       <SafeAreaProvider style={styles.container}>
         <SafeAreaView>
-        <View style={styles.formContainer}>
-          <Text style={[styles.login]}> WhatsThat </Text>
-          <View style={styles.email}>
-            <Text>Email:</Text>
+          <View style={styles.formContainer}>
+            <Text style={[styles.login]}> WhatsThat </Text>
+            <View style={styles.email}>
+              <Text>Email:</Text>
 
-            <TextInput
-              style={{ height: 50, borderWidth: 1, width: "100%" }}
-              placeholder="Max@stu.mmu.ac.uk"
-              onChangeText={(email) => this.setState({ email })}
-              defaultValue={this.state.email}
-            />
+              <TextInput
+                style={{ height: 50, borderWidth: 1, width: "100%" }}
+                placeholder="Max@stu.mmu.ac.uk"
+                onChangeText={(email) => this.setState({ email })}
+                defaultValue={this.state.email}
+              />
+
+              <>
+                {this.state.submitted && !this.state.email && (
+                  <Text style={styles.error}>*Email is required</Text>
+                )}
+              </>
+            </View>
+
+            <View style={styles.password}>
+              <Text>Password:</Text>
+              <TextInput
+                style={{ height: 50, borderWidth: 1, width: "100%" }}
+                placeholder="password"
+                onChangeText={(password) => this.setState({ password })}
+                defaultValue={this.state.password}
+                secureTextEntry
+              />
+
+              <>
+                {this.state.submitted && !this.state.password && (
+                  <Text style={styles.error}>*Password is required</Text>
+                )}
+              </>
+            </View>
+
+            <View style={styles.loginbtn}>
+              <TouchableOpacity onPress={this._onPressButton}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Login</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
 
             <>
-              {this.state.submitted && !this.state.email && (
-                <Text style={styles.error}>*Email is required</Text>
+              {this.state.error && (
+                <Text style={styles.error}>{this.state.error}</Text>
               )}
             </>
+
+            <View>
+              <Text style={styles.signup}>Create account</Text>
+              <Button
+                title="Sign Up"
+                onPress={() => useNavigation.navigate("signUp")}
+              />
+            </View>
           </View>
-
-          <View style={styles.password}>
-            <Text>Password:</Text>
-            <TextInput
-              style={{ height: 50, borderWidth: 1, width: "100%" }}
-              placeholder="password"
-              onChangeText={(password) => this.setState({ password })}
-              defaultValue={this.state.password}
-              secureTextEntry
-            />
-
-            <>
-              {this.state.submitted && !this.state.password && (
-                <Text style={styles.error}>*Password is required</Text>
-              )}
-            </>
-          </View>
-
-          <View style={styles.loginbtn}>
-            <TouchableOpacity onPress={this._onPressButton}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Login</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <>
-            {this.state.error && (
-              <Text style={styles.error}>{this.state.error}</Text>
-            )}
-          </>
-
-          <View>
-            <Text style={styles.signup}>Create account</Text>
-            <Button
-              title="Sign Up"
-              onPress={() => useNavigation.navigate("signUp")}
-            />
-          </View>
-        </View>
         </SafeAreaView>
       </SafeAreaProvider>
     );

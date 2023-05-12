@@ -1,48 +1,28 @@
-import { SimpleLineIcons, MaterialCommunityIcons , Zocial } from '@expo/vector-icons';
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import Input from '../components/Input';
-import PageContainer from '../components/PageContainer';
-import SubmitButton from '../components/SubmitButton';
+import PageContainer from "../components/PageContainer";
 
-const AuthScreen = props => {
-    
-    return <SafeAreaView style={{ flex: 1}}>
-        <PageContainer>
-            <Input
-                label="First name"
-                icon="user"
-                iconSize = {25}
-                iconPack={SimpleLineIcons} />
+import SignUp from "../components/SignUp";
+import LogIn from "../components/LogIn";
 
-            <Input
-                label="Last name"
-                icon="user"
-                iconSize = {25}
-                iconPack={SimpleLineIcons} />
+const AuthScreen = (props) => {
 
-            <Input
-                label="Email"
-                icon="email-outline"
-                iconSize = {25}
-                iconPack={MaterialCommunityIcons} />
-
-            <Input
-                label="Password"
-                icon="lock"
-                iconSize = {25}
-                iconPack={SimpleLineIcons} />
-
-            <SubmitButton disabled ={true}/>
-
-        </PageContainer>
+    const [isSignUp, setIsSignUp] = useState(false);
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <PageContainer>
+        {
+            isSignUp ?
+            <SignUp /> :
+            <LogIn />
+        }
+      </PageContainer>
     </SafeAreaView>
+  );
 };
 
-const styles = StyleSheet.create({
-    
-})
+const styles = StyleSheet.create({});
 
 export default AuthScreen;

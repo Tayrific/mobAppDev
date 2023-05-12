@@ -20,8 +20,8 @@ const TabNavigator = () => {
         component={ChatListScreen}
         options={{
           tabBarLabel: "Chats",
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="chatbubbles" size={size} color= {color} /> // chat icons
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbubbles" size={size} color={color} /> // chat icons
           ),
         }}
       />
@@ -30,8 +30,8 @@ const TabNavigator = () => {
         component={Settings}
         options={{
           tabBarLabel: "Settings",
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="settings" size={size} color= {color}/> //settings icon
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} /> //settings icon
           ),
         }}
       />
@@ -52,7 +52,7 @@ const MainNavigator = (props) => {
         component={ChatScreen}
         options={{ gestureEnabled: true }}
       />
-            <stack.Screen
+      <stack.Screen
         name="ChatSettings"
         component={ChatSettings}
         options={{ gestureEnabled: true, headerTitle: "Settings" }}

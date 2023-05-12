@@ -27,10 +27,11 @@ const ChatScreen = (props) => {
 
   return (
     <SafeAreaView edges={["right", "left", "bottom"]} style={styles.container}>
-      <KeyboardAvoidingView 
-        style = {styles.keyboard}
-        behavior= {Platform.OS === "ios" ? "padding" : undefined}
-        keyboardVerticalOffset={100}>
+      <KeyboardAvoidingView
+        style={styles.keyboard}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={100}
+      >
         <ImageBackground
           source={backgroundImage}
           style={styles.backgroundImage}
@@ -108,9 +109,9 @@ const styles = StyleSheet.create({
     padding: 8,
     width: 35,
   },
-  keyboard:{
-    flex: 1
-  }
+  keyboard: {
+    flex: 1,
+  },
 });
 
 export default ChatScreen;
