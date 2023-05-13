@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import LoginScreen from "../screens/login";
 import ChatListScreen from "../screens/ChatList";
 import ChatSettings from "../screens/ChatSettings";
 import Settings from "../screens/Settings";

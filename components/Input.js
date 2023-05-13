@@ -1,31 +1,36 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import colors from "../Constants/colors";
 
+const Input = props => {
 
+  const onChangeText = text => {
+      props.onInputChanged(props.id, text);
+  }
 
-const Input = (props) => {
-  return (
-    <View style={styles.container}>
+  return <View style={styles.container}>
       <Text style={styles.label}>{props.label}</Text>
 
       <View style={styles.inputContainer}>
-        {props.icon && (
-          <props.iconPack
-            name={props.icon}
-            size={props.iconSize || 15}
-            style={styles.icon}
-          />
-        )}
-        <TextInput style={styles.input} />
+          {
+              props.icon && <props.iconPack
+                  name={props.icon}
+                  size={props.iconSize || 15 }
+                  style={styles.icon} />
+          }
+          <TextInput
+              { ...props }
+              style={styles.input}
+              onChangeText={onChangeText}/>
       </View>
 
-      {props.errorText && (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{props.errorText}</Text>
-        </View>
-      )}
-    </View>
-  );
+      {
+          props.errorText &&
+          <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{props.errorText}</Text>
+          </View>
+      }
+
+  </View>
 };
 
 const styles = StyleSheet.create({
