@@ -11,10 +11,12 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^18.0.1",
+    "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@reduxjs/toolkit": "^1.9.5",
     "assets": "^3.0.1",
     "email-validator": "^2.0.4",
     "expo": "~48.0.15",
@@ -31,6 +33,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-web": "~0.18.10",
     "react-navigation": "^4.4.4",
+    "react-redux": "^8.0.5",
     "tailwindcss-react-native": "^1.7.10",
     "validate.js": "^0.13.1"
   },
