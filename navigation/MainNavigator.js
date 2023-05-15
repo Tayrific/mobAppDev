@@ -1,26 +1,48 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import ChatListScreen from "../screens/ChatList";
 import ChatSettings from "../screens/ChatSettings";
 import Settings from "../screens/Settings";
 import ChatScreen from "../screens/ChatScreen";
+import Contacts from "../screens/ContactsList";
+import colors from "../Constants/colors";
 
 const stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerTitle: "" }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerTitle: "",
+        headerShadowVisible: false,
+        headerTransparent: true,
+      }}
+    >
       <Tab.Screen
         name="chatList"
         component={ChatListScreen}
         options={{
           tabBarLabel: "Chats",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbubbles" size={size} color={color} /> // chat icons
+            <Ionicons name="chatbubbles" size={size} color={colors.red} /> // chat icons
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ContactsList"
+        component={Contacts}
+        options={{
+          tabBarLabel: "Contacts",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons
+              name="perm-contact-cal"
+              size={size}
+              color={colors.red}
+            /> //contacts icon
           ),
         }}
       />
@@ -30,7 +52,7 @@ const TabNavigator = () => {
         options={{
           tabBarLabel: "Settings",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} /> //settings icon
+            <Ionicons name="settings" size={size} color={colors.red} /> //settings icon
           ),
         }}
       />

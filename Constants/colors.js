@@ -5,4 +5,6 @@ export default {
   nearlyWhite: "#F4F8F7",
   textColor: "#af3039",
   primaryButton: "#cc8593",
+  red: "#CD5C5C",
+
 };

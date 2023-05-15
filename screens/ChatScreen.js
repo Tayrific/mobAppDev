@@ -42,7 +42,7 @@ const ChatScreen = (props) => {
             style={styles.mediaButton}
             onPress={() => console.log("pressed!")}
           >
-            <Entypo name="plus" size={24} color={colors.lightPink} />
+            <Entypo name="plus" size={24} color={colors.red} />
           </TouchableOpacity>
 
           <TextInput
@@ -57,7 +57,7 @@ const ChatScreen = (props) => {
               style={styles.mediaButton}
               onPress={() => console.log("pressed!")}
             >
-              <Entypo name="camera" size={24} color={colors.lightPink} />
+              <Entypo name="camera" size={24} color={colors.red} />
             </TouchableOpacity>
           )}
 

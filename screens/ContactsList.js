@@ -5,12 +5,7 @@ import PageContainer from "../components/PageContainer";
 const ChatListScreen = (props) => {
   return (
     <PageContainer style={styles.container}>
-      <Text>Chat list screen</Text>
-
-      <Button
-        title="go to ChatScreen"
-        onPress={() => props.navigation.navigate("ChatScreen")}
-      />
+      <Text>Contacts list screen</Text>
     </PageContainer>
   );
 };
