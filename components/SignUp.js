@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import {
   SimpleLineIcons,
   MaterialCommunityIcons,
@@ -12,7 +12,9 @@ import { reducer } from "../utils/reducers/formReducer";
 import { signingUp } from "../utils/actions/authActions";
 import { ActivityIndicator } from "react-native";
 import colors from "../Constants/colors";
-import LogIn from "../components/LogIn";
+import { useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 const initialState = {
   inputValues: {
@@ -31,11 +33,12 @@ const initialState = {
 };
 
 const SignUp = (props) => {
+  const dispatch = useDispatch();
+  const stateData = useSelector(state => state.auth)
+  console.log(stateData)
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
-
   const [formState, dispatchFormState] = useReducer(reducer, initialState);
-
   const inputChangedHandler = useCallback(
     (inputId, inputValue) => {
       const result = validateInput(inputId, inputValue);
@@ -44,53 +47,29 @@ const SignUp = (props) => {
     [dispatchFormState]
   );
 
-  const authHandler = async () => {
-    try {
-      setIsLoading(true);
-      signingUp(
-        formState.inputValues.firstName,
-        formState.inputValues.lastName,
-        formState.inputValues.email,
-        formState.inputValues.password
-      );
-      setError(null);
-    } catch (error) {
-      setError(error.message);
-      setIsLoading(false);
+  useEffect(() => {
+    if (error) {
+        Alert.alert("An error occured", error, [{ text: "Okay" }]);
     }
+}, [error])
 
-    return fetch("http://localhost:3333/api/1.0.0/user", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        first_name: formState.inputValues.firstName,
-        last_name: formState.inputValues.lastName,
-        email: formState.inputValues.email,
-        password: formState.inputValues.password,
-      }),
-    })
-      .then((response) => {
-        if (response.status === 201) {
-          return response.json();
-        } else if (response.status === 400) {
-          throw "Failed validation";
-        } else {
-          throw "Something went wrong";
-        }
-      })
-      .then((responseJson) => {
-        console.log("token: " + responseJson.token);
-        AsyncStorage.setItem("token", responseJson.token);
-        AsyncStorage.setItem("user_id", responseJson.user_id.toString());
-        console.log("user created with ID: " + responseJson.user_id);
-        props.navigation.navigate("LogIn");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+const authHandler = useCallback(async () => {
+    try {
+        setIsLoading(true);
+
+        const action = signingUp(
+            formState.inputValues.firstName,
+            formState.inputValues.lastName,
+            formState.inputValues.email,
+            formState.inputValues.password,
+        );
+        dispatch(action);
+        setError(null);
+    } catch (error) {
+        setError(error.message);
+        setIsLoading(false);
+    }
+}, [dispatch, formState]);
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { StyleSheet, View } from "react-native";
+import colors from "../Constants/colors";
 
 const PageContainer = (props) => {
   return (
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: colors.evenLighterPink,
   },
 });
 

@@ -3,8 +3,8 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import colors from "../Constants/colors";
 
 const SubmitButton = (props) => {
-  const enabledBgColor = props.color || colors.primaryButton;
-  const disabledBgColor = colors.evenLighterPink;
+  const enabledBgColor = props.color || colors.brown;
+  const disabledBgColor = colors.brown;
   const bgColor = props.disabled ? disabledBgColor : enabledBgColor;
 
   return (
@@ -15,7 +15,7 @@ const SubmitButton = (props) => {
         ...props.style, 
         ...{ backgroundColor: bgColor } }}
     >
-      <Text style={{ color: props.disabled ? colors.lightPink : "white" }}>
+      <Text style={{ color: props.disabled ? colors.nearlyWhite : "white" }}>
         {props.title}
       </Text>
       
