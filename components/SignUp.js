@@ -34,8 +34,8 @@ const initialState = {
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
-  const stateData = useSelector(state => state.auth)
-  console.log(stateData)
+  const stateData = useSelector((state) => state.auth);
+  console.log(stateData);
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [formState, dispatchFormState] = useReducer(reducer, initialState);
@@ -49,27 +49,27 @@ const SignUp = (props) => {
 
   useEffect(() => {
     if (error) {
-        Alert.alert("An error occured", error, [{ text: "Okay" }]);
+      Alert.alert("An error occured", error, [{ text: "Okay" }]);
     }
-}, [error])
+  }, [error]);
 
-const authHandler = useCallback(async () => {
+  const authHandler = useCallback(async () => {
     try {
-        setIsLoading(true);
+      setIsLoading(true);
 
-        const action = signingUp(
-            formState.inputValues.firstName,
-            formState.inputValues.lastName,
-            formState.inputValues.email,
-            formState.inputValues.password,
-        );
-        dispatch(action);
-        setError(null);
+      const action = signingUp(
+        formState.inputValues.firstName,
+        formState.inputValues.lastName,
+        formState.inputValues.email,
+        formState.inputValues.password
+      );
+      dispatch(action);
+      setError(null);
     } catch (error) {
-        setError(error.message);
-        setIsLoading(false);
+      setError(error.message);
+      setIsLoading(false);
     }
-}, [dispatch, formState]);
+  }, [dispatch, formState]);
 
   return (
     <>

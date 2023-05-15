@@ -10,15 +10,15 @@ const SubmitButton = (props) => {
   return (
     <TouchableOpacity
       onPress={props.disabled ? () => {} : props.onPress}
-      style={{ 
+      style={{
         ...styles.button,
-        ...props.style, 
-        ...{ backgroundColor: bgColor } }}
+        ...props.style,
+        ...{ backgroundColor: bgColor },
+      }}
     >
       <Text style={{ color: props.disabled ? colors.nearlyWhite : "white" }}>
         {props.title}
       </Text>
-      
     </TouchableOpacity>
   );
 };
