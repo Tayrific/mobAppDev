@@ -39,6 +39,7 @@ const SignUp = (props) => {
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [formState, dispatchFormState] = useReducer(reducer, initialState);
+
   const inputChangedHandler = useCallback(
     (inputId, inputValue) => {
       const result = validateInput(inputId, inputValue);
@@ -49,9 +50,9 @@ const SignUp = (props) => {
 
   useEffect(() => {
     if (error) {
-      Alert.alert("An error occured", error, [{ text: "Okay" }]);
+      Alert.alert("Error occured", error, [{ text: "Okay"}]);
     }
-  }, [error]);
+  }, [error])
 
   const authHandler = useCallback(async () => {
     try {
@@ -81,6 +82,7 @@ const SignUp = (props) => {
         iconPack={SimpleLineIcons}
         onInputChanged={inputChangedHandler}
         errorText={formState.inputValidities["firstName"]}
+        value={formState.inputValues.email}
       />
 
       <Input
@@ -91,6 +93,7 @@ const SignUp = (props) => {
         iconPack={SimpleLineIcons}
         onInputChanged={inputChangedHandler}
         errorText={formState.inputValidities["lastName"]}
+        value={formState.inputValues.email}
       />
 
       <Input

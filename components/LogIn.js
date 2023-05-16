@@ -69,7 +69,7 @@ const LogIn = (props) => {
         iconSize={25}
         iconPack={MaterialCommunityIcons}
         onInputChanged={inputChangedHandler}
-        errorText={formState.inputValidities["email"]}
+        initialValue={formState.inputValidities.email}
       />
 
       <Input
@@ -81,7 +81,7 @@ const LogIn = (props) => {
         autoCapitalize="none"
         secureTextEntry={true}
         onInputChanged={inputChangedHandler}
-        errorText={formState.inputValidities["password"]}
+        initialValue={formState.inputValidities}
       />
       {isLoading ? (
         <ActivityIndicator size="small" color={colors.brown} />

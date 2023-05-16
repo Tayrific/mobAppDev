@@ -14,6 +14,8 @@ export const authSlice = createSlice({
       state.token = payload.token;
       state.userData = payload.userData;
       console.log(state);
+
+      
     },
   },
 });
