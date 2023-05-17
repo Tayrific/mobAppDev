@@ -1,5 +1,11 @@
 import React, { useCallback, useReducer, useState, useEffect } from "react";
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import PageTitle from "../components/PageTitle";
 import PageContainer from "../components/PageContainer";
 import { MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons";
@@ -178,7 +184,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     alignItems: "center",
-  }
+  },
 });
 
 export default Settings;

@@ -10,26 +10,24 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/CustomHeaderButton";
 import { Entypo } from "@expo/vector-icons";
 
-
-
 const ContactsList = (props) => {
   const [contacts, setContacts] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-   useEffect(() => {
-     props.navigation.setOptions({
-       headerRight: () => (
-         <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-           <Item
-             title="Block User"
-             iconName="block"
-             onPress={() => props.navigation.navigate("Blocked")}
-           />
-         </HeaderButtons>
-       ),
-     });
-   }, []);
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="Block User"
+            iconName="block"
+            onPress={() => props.navigation.navigate("Blocked")}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, []);
 
   useEffect(() => {
     //loadContacts();
@@ -56,12 +54,7 @@ const ContactsList = (props) => {
     }
   };
 
-
-
-  const addUser = async () => {
-
-  }
-
+  const addUser = async () => {};
 
   return (
     <PageContainer>
@@ -81,7 +74,6 @@ const ContactsList = (props) => {
       </ScrollView>
     </PageContainer>
   );
-  
 };
 
 const styles = StyleSheet.create({

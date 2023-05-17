@@ -57,31 +57,31 @@ const RemoveContact = (props) => {
     return () => clearTimeout(delaySearch);
   }, [SearchTerm]);
 
- const removeContact = async (userId) => {
-   const token = await AsyncStorage.getItem("@session_token");
-   const response = await fetch(
-     `http://localhost:3333/api/1.0.0/user/${userId}/contact`,
-     {
-       method: "delete",
-       headers: {
-         "Content-Type": "application/json",
-         "X-Authorization": token,
-       },
-     }
-   );
+  const removeContact = async (userId) => {
+    const token = await AsyncStorage.getItem("@session_token");
+    const response = await fetch(
+      `http://localhost:3333/api/1.0.0/user/${userId}/contact`,
+      {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Authorization": token,
+        },
+      }
+    );
 
-   if (response.ok) {
-     console.log("Contact removed successfully");
-   } else if (response.status === 400) {
-     console.log("You can't remove yourself as a contact");
-   } else if (response.status === 401) {
-     console.log("Unauthorized");
-   } else if (response.status === 404) {
-     console.log("Not Found");
-   } else {
-     console.log("Server Error");
-   }
- };
+    if (response.ok) {
+      console.log("Contact removed successfully");
+    } else if (response.status === 400) {
+      console.log("You can't remove yourself as a contact");
+    } else if (response.status === 401) {
+      console.log("Unauthorized");
+    } else if (response.status === 404) {
+      console.log("Not Found");
+    } else {
+      console.log("Server Error");
+    }
+  };
   return (
     <PageContainer>
       <View style={styles.searchContainer}>

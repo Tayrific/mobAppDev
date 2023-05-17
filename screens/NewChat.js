@@ -22,8 +22,7 @@ const NewChat = (props) => {
   const [users, setUsers] = useState();
   const [noResults, setNoResults] = useState(false);
   const [SearchTerm, setSearchTerm] = useState("");
-   const stateData = useSelector((state) => state.auth);
-
+  const stateData = useSelector((state) => state.auth);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -52,17 +51,17 @@ const NewChat = (props) => {
         setNoResults(true);
       } else {
         setNoResults(false);
-        }
+      }
       setIsLoading(false);
     }, 500);
     return () => clearTimeout(delaySearch);
   }, [SearchTerm]);
 
-  const userSelected = userId => {
+  const userSelected = (userId) => {
     props.navigation.navigate("ChatListScreen", {
-      selectedUserId: userId
+      selectedUserId: userId,
     });
-  }
+  };
   return (
     <PageContainer>
       <View style={styles.searchContainer}>
@@ -87,12 +86,11 @@ const NewChat = (props) => {
 
             const { given_name, family_name, email } = users[item];
             return (
-
-                <DataItem 
-                title ={`${given_name} ${family_name}`}
-                subTitle ={email}
-                onPress={() => userSelected(userId)}/>
-
+              <DataItem
+                title={`${given_name} ${family_name}`}
+                subTitle={email}
+                onPress={() => userSelected(userId)}
+              />
             );
           }}
         />

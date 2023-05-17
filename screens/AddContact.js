@@ -57,31 +57,31 @@ const AddContact = (props) => {
     return () => clearTimeout(delaySearch);
   }, [SearchTerm]);
 
-    const addContact = async (userId) => {
-      const token = await AsyncStorage.getItem("@session_token");
-      const response = await fetch(
-        `http://localhost:3333/api/1.0.0/user/${userId}/contact`,
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Authorization": token,
-          },
-        }
-      );
-
-      if (response.ok) {
-        console.log("Contact added successfully");
-      } else if (response.status === 400) {
-        console.log("You can't add yourself as a contact");
-      } else if (response.status === 401) {
-        console.log("Unauthorized");
-      } else if (response.status === 404) {
-        console.log("Not Found");
-      } else {
-        console.log("Server Error");
+  const addContact = async (userId) => {
+    const token = await AsyncStorage.getItem("@session_token");
+    const response = await fetch(
+      `http://localhost:3333/api/1.0.0/user/${userId}/contact`,
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Authorization": token,
+        },
       }
-    };
+    );
+
+    if (response.ok) {
+      console.log("Contact added successfully");
+    } else if (response.status === 400) {
+      console.log("You can't add yourself as a contact");
+    } else if (response.status === 401) {
+      console.log("Unauthorized");
+    } else if (response.status === 404) {
+      console.log("Not Found");
+    } else {
+      console.log("Server Error");
+    }
+  };
 
   return (
     <PageContainer>
@@ -103,7 +103,7 @@ const AddContact = (props) => {
         <FlatList
           data={Object.keys(users)}
           renderItem={({ item }) => {
-            const {user_id} = users[item];
+            const { user_id } = users[item];
             console.log(user_id);
 
             const { given_name, family_name, email } = users[item];

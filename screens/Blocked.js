@@ -14,8 +14,6 @@ const ContactsList = (props) => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-
-
   useEffect(() => {
     //loadContacts();
     loadBlocked();
