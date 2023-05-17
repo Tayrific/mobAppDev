@@ -12,7 +12,6 @@ import { reducer } from "../utils/reducers/formReducer";
 import { signingUp } from "../utils/actions/authActions";
 import { ActivityIndicator } from "react-native";
 import colors from "../Constants/colors";
-import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 

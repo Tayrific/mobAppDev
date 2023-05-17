@@ -1,17 +1,20 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import PageContainer from "../components/PageContainer";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import PageTitle from "../components/PageTitle";
 import SubHeading from "../components/SubHeading";
 import SubmitButton from "../components/SubmitButton";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import CustomHeaderButton from "../components/CustomHeaderButton";
 
-const ContactsList = (props) => {
+const Blocked = (props) => {
   const [contacts, setContacts] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [blocked, setBlocked] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -21,7 +24,7 @@ const ContactsList = (props) => {
 
   const loadBlocked = async () => {
     const token = await AsyncStorage.getItem("@session_token");
-    const response = await fetch("http://localhost:3333/api/1.0.0/contacts", {
+    const response = await fetch("http://localhost:3333/api/1.0.0/blocked", {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -30,21 +33,33 @@ const ContactsList = (props) => {
     });
 
     if (response.ok) {
-      const users = await response.json();
-      setUsers(users);
+      const blocked = await response.json();
+      console.log(blocked);
+      setBlocked(blocked);
 
-      console.log("users loaded successfully");
+      console.log("blocked loaded successfully");
     } else {
-      console.log("Error loading users:", response.statusText);
+      console.log("Error loading blocked contacts:", response.statusText);
     }
   };
 
-  const addUser = async () => {};
+  const displayBlocked = () => {
+      console.log("displayBlocked called");
+
+    return blocked.map((blocked, index) => {
+      return (
+        <TouchableOpacity key={index} style={styles.blockedItem}>
+          <Text>{blocked.first_name}</Text>
+          <Text>{blocked.email}</Text>
+        </TouchableOpacity>
+      );
+    });
+  };
 
   return (
     <PageContainer>
       <ScrollView>
-        <SubHeading text="here's a list of your blocked contacts " />
+        <SubHeading text="Here's a list of your blocked contacts:" />
         <SubmitButton
           title="Block contact"
           onPress={() => props.navigation.navigate("AddBlock")}
@@ -55,17 +70,22 @@ const ContactsList = (props) => {
           onPress={() => props.navigation.navigate("UnblockContact")}
           style={{ marginTop: 20 }}
         />
+
+        {displayBlocked()}
       </ScrollView>
     </PageContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
+  blockedItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
   },
 });
 
-export default ContactsList;
+export default Blocked;

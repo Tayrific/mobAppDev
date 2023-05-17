@@ -1,7 +1,5 @@
 import React, { useCallback, useReducer, useState, useEffect } from "react";
 import {
-  View,
-  Text,
   StyleSheet,
   ActivityIndicator,
   ScrollView,

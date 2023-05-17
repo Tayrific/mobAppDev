@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import PageContainer from "../components/PageContainer";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -8,10 +14,9 @@ import SubHeading from "../components/SubHeading";
 import SubmitButton from "../components/SubmitButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/CustomHeaderButton";
-import { Entypo } from "@expo/vector-icons";
+import colors from "../Constants/colors";
 
 const ContactsList = (props) => {
-  const [contacts, setContacts] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -54,42 +59,76 @@ const ContactsList = (props) => {
   };
 
   const displayContacts = () => {
-    return users.map((user, index) => (
-      <View key={index}>
-        <Text>
-          {user.firstname} {user.lastname}
-        </Text>
-        <Text>{user.email}</Text>
-      </View>
-    ));
+    return users.map((user, index) => {
+      return (
+        <TouchableOpacity key={index} style={styles.user}>
+          <Text style={styles.textUser}>
+            name ={user.first_name} {user.last_name}
+          </Text>
+          <Text style={styles.textUser}> email = {user.email}</Text>
+        </TouchableOpacity>
+      );
+    });
   };
 
   return (
     <PageContainer>
-      <ScrollView>
-        <PageTitle text="Contacts List" />
-        <SubHeading text="here's a list of your contacts " />
-        {displayContacts()}
-        <SubmitButton
-          title="add new contact"
-          onPress={() => props.navigation.navigate("AddContact")}
-          style={{ marginTop: 20 }}
-        />
-        <SubmitButton
-          title="Remove a contact"
-          onPress={() => props.navigation.navigate("RemoveContact")}
-          style={{ marginTop: 20 }}
-        />
-      </ScrollView>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          <PageTitle text="Contacts List" />
+          <SubHeading text="Here's a list of your contacts" />
+
+          <SubmitButton
+            title="Add New Contact"
+            onPress={() => props.navigation.navigate("AddContact")}
+            style={{ marginTop: 20 }}
+          />
+          <SubmitButton
+            title="Remove a Contact"
+            onPress={() => props.navigation.navigate("RemoveContact")}
+            style={{ marginTop: 20 }}
+          />
+          {displayContacts()}
+        </ScrollView>
+      </View>
     </PageContainer>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    alignItems: "center",
+
+    padding: 20,
+  },
+  user: {
+    backgroundColor: colors.nearlyWhite,
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    width: "100%",
+    height: 100,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 8,
+    marginVertical: 8,
+    shadowColor: "black",
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 5,
+  },
+  textUser: {
+    alignItems: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.brown,
+    marginHorizontal: 8,
   },
 });
 

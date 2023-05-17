@@ -1,5 +1,5 @@
 import React from "react";
-import { HeaderButton, Item } from "react-navigation-header-buttons";
+import { HeaderButton } from "react-navigation-header-buttons";
 import colors from "../Constants/colors";
 import { Entypo } from "@expo/vector-icons";
 

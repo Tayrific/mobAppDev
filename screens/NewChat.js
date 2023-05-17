@@ -91,11 +91,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  
-  email: {
-    width: "80%",
-    marginBottom: 20,
-    },
   error: {
     color: "red",
   },

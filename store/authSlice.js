@@ -7,6 +7,7 @@ export const authSlice = createSlice({
     token: null,
     userData: null,
   },
+
   reducers: {
     // Add reducers here
     authenticate: (state, action) => {
