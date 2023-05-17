@@ -43,31 +43,57 @@ const Blocked = (props) => {
     }
   };
 
-  const displayBlocked = () => {
-      console.log("displayBlocked called");
+  const unblockContact = async (userId) => {
+    const token = await AsyncStorage.getItem("@session_token");
+    const response = await fetch(
+      `http://localhost:3333/api/1.0.0/user/${userId}/block`,
+      {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Authorization": token,
+        },
+      }
+    );
 
-    return blocked.map((blocked, index) => {
-      return (
-        <TouchableOpacity key={index} style={styles.blockedItem}>
-          <Text>{blocked.first_name}</Text>
-          <Text>{blocked.email}</Text>
-        </TouchableOpacity>
-      );
-    });
+    if (response.ok) {
+      console.log("Contact unblocked successfully");
+    } else if (response.status === 400) {
+      console.log("You can't block yourself");
+    } else if (response.status === 401) {
+      console.log("Unauthorized");
+    } else if (response.status === 404) {
+      console.log("Not Found");
+    } else {
+      console.log("Server Error");
+    }
   };
+
+ const displayBlocked = () => {
+   return blocked.map((blocked, index) => {
+     return (
+       <TouchableOpacity
+         key={index}
+         style={styles.blockedItem}
+         onPress={() => unblockContact(blocked.user_id)}
+       >
+         <Text>{blocked.first_name}</Text>
+         <Text>{blocked.email}</Text>
+       </TouchableOpacity>
+     );
+   });
+ };
+
+  
 
   return (
     <PageContainer>
       <ScrollView>
         <SubHeading text="Here's a list of your blocked contacts:" />
+        <SubHeading text="Click a name to unblock!" />
         <SubmitButton
           title="Block contact"
           onPress={() => props.navigation.navigate("AddBlock")}
-          style={{ marginTop: 20 }}
-        />
-        <SubmitButton
-          title="Unblock a contact"
-          onPress={() => props.navigation.navigate("UnblockContact")}
           style={{ marginTop: 20 }}
         />
 

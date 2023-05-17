@@ -1,11 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import PageContainer from "../components/PageContainer";
 
 const ChatSettings = (props) => {
   return (
-    <View style={styles.container}>
-      <Text>Chat settings screen</Text>
-    </View>
+  
+      <PageContainer>
+        <Text>Chat settings screen</Text>
+      </PageContainer>
+      
   );
 };
 

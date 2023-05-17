@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -12,11 +12,27 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Entypo } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import CustomHeaderButton from "../components/CustomHeaderButton";
 
 import backgroundImage from "../assets/images/background.jpeg";
 import colors from "../Constants/colors";
 
 const ChatScreen = (props) => {
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+          <Item
+            title="add User"
+            iconName="cog"
+            onPress={() => props.navigation.navigate("ChatSettings")}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, []);
   const [messageText, setMessageText] = useState("");
 
   const sendMessage = useCallback(() => {
