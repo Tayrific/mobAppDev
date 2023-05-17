@@ -67,8 +67,11 @@ export const logginIn = (email, password) => {
         console.log("user logged in with ID: " + userId);
         console.log("token: " + sessionToken);
 
-        const userData = { userid };
-        dispatch(authenticate({ token: sessionToken, userData }));
+        const userData = { userId,
+          email,
+
+         };
+        dispatch(authenticate({ token: sessionToken, userData: userData }));
       } else if (response.status === 400) {
         throw "Failed validation, check email or password";
       } else {

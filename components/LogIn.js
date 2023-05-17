@@ -24,8 +24,6 @@ const initialState = {
 
 const LogIn = (props) => {
   const dispatch = useDispatch();
-  const stateData = useSelector((state) => state.auth);
-  console.log(stateData);
   const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [formState, dispatchFormState] = useReducer(reducer, initialState);
@@ -47,6 +45,7 @@ const LogIn = (props) => {
   const authHandler = useCallback(async () => {
     try {
       setIsLoading(true);
+      
 
       const action = logginIn(
         formState.inputValues.email,
@@ -54,9 +53,11 @@ const LogIn = (props) => {
       );
       dispatch(action);
       setError(null);
+      console.log(state);
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
+      
     }
   }, [dispatch, formState]);
 

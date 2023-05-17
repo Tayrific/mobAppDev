@@ -3,27 +3,24 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TextInput,
+  ActivityIndicator,
   FlatList,
 } from "react-native";
-import PageContainer from "../components/PageContainer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/CustomHeaderButton";
-import { FontAwesome } from "@expo/vector-icons";
 import colors from "../Constants/colors";
-import { searchUsers } from "../utils/actions/userActions";
 import { useSelector } from "react-redux";
-import { ActivityIndicator } from "react-native-web";
+import { FontAwesome } from "@expo/vector-icons";
 import DataItem from "../components/DataItems";
+import PageContainer from "../components/PageContainer";
 
-const NewChat = (props) => {
+const AddContact = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState();
   const [noResults, setNoResults] = useState(false);
   const [SearchTerm, setSearchTerm] = useState("");
-   const stateData = useSelector((state) => state.auth);
-
+  const stateData = useSelector((state) => state.auth);
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -32,37 +29,10 @@ const NewChat = (props) => {
           <Item title="close" onPress={() => props.navigation.goBack()} />
         </HeaderButtons>
       ),
-      headerTitle: "New Chat",
+      headerTitle: "Add Contact",
     });
   }, []);
 
-  useEffect(() => {
-    const delaySearch = setTimeout(async () => {
-      if (!SearchTerm || SearchTerm === "") {
-        setUsers();
-        setNoResults(false);
-        return;
-      }
-      setIsLoading(true);
-      const results = await searchUsers(SearchTerm, "all", 20, 0);
-      delete results[stateData.userData.userId];
-      setUsers(results);
-
-      if (Object.keys(results).length === 0) {
-        setNoResults(true);
-      } else {
-        setNoResults(false);
-        }
-      setIsLoading(false);
-    }, 500);
-    return () => clearTimeout(delaySearch);
-  }, [SearchTerm]);
-
-  const userSelected = userId => {
-    props.navigation.navigate("ChatListScreen", {
-      selectedUserId: userId
-    });
-  }
   return (
     <PageContainer>
       <View style={styles.searchContainer}>
@@ -87,12 +57,11 @@ const NewChat = (props) => {
 
             const { given_name, family_name, email } = users[item];
             return (
-
-                <DataItem 
-                title ={`${given_name} ${family_name}`}
-                subTitle ={email}
-                onPress={() => userSelected(userId)}/>
-
+              <DataItem
+                title={`${given_name} ${family_name}`}
+                subTitle={email}
+                onPress={() => userSelected(userId)}
+              />
             );
           }}
         />
@@ -156,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewChat;
+export default AddContact;

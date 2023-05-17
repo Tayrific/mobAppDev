@@ -114,7 +114,7 @@ const Settings = (props) => {
         <PageTitle text="Settings" />
         <SubHeading text="Update your information here: " />
 
-        <ProfImage size={100} />
+        <ProfImage size={100} showEdit={true} />
 
         <Input
           id="firstName"

@@ -24,9 +24,12 @@ const checkMediaLibraryPermission = async () => {
 };
 
 const ProfImage = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [image, setImage] = useState(
     props.uri ? { uri: props.uri } : defaultUser
   );
+
+  const showEdit = props.showEdit && props.showEdit === true;
 
   const changeImage = async () => {
     try {
@@ -79,8 +82,10 @@ const ProfImage = (props) => {
       });
   };
 
+  const Container = showEdit ? TouchableOpacity : View;
+
   return (
-    <TouchableOpacity onPress={changeImage}>
+    <Container onPress={changeImage}>
       <Image
         style={{
           ...styles.image,
@@ -88,11 +93,12 @@ const ProfImage = (props) => {
         }}
         source={image}
       />
-
-      <View style={styles.edit}>
-        <FontAwesome name="edit" size={30} color={colors.brown} />
-      </View>
-    </TouchableOpacity>
+      {showEdit && !isLoading && (
+        <View style={styles.edit}>
+          <FontAwesome name="edit" size={30} color={colors.brown} />
+        </View>
+      )}
+    </Container>
   );
 };
 
