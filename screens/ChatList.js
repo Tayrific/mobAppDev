@@ -66,7 +66,7 @@ const ChatListScreen = (props) => {
         <TouchableOpacity
           key={chat.chat_id}
           style={styles.chat}
-          onPress={() => props.navigation.navigate("ChatScreen")}
+          onPress={() => props.navigation.navigate("ChatScreen", { chat_id: chat.chat_id })}
         >
           <AntDesign name="star" size={24} color={colors.lightPink} />
           <Text style={styles.chatText}>{chat.name}</Text>

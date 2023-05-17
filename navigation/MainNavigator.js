@@ -15,6 +15,7 @@ import RemoveContact from "../screens/RemoveContact";
 import Blocked from "../screens/Blocked";
 import AddBlock from "../screens/AddBlock";
 import UnblockContact from "../screens/UnblockContact";
+import UpdateChat from "../screens/UpdateChat";
 
 const stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -94,6 +95,7 @@ const MainNavigator = (props) => {
         <stack.Screen name="Blocked" component={Blocked} />
         <stack.Screen name="AddBlock" component={AddBlock} />
         <stack.Screen name="UnblockContact" component={UnblockContact} />
+        <stack.Screen name="UpdateChat" component={UpdateChat} />
       </stack.Group>
     </stack.Navigator>
   );

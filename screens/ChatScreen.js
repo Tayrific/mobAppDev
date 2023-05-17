@@ -19,6 +19,8 @@ import backgroundImage from "../assets/images/background.jpeg";
 import colors from "../Constants/colors";
 
 const ChatScreen = (props) => {
+  const { chat_id } = props.route.params;
+  
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -27,7 +29,11 @@ const ChatScreen = (props) => {
           <Item
             title="add User"
             iconName="cog"
-            onPress={() => props.navigation.navigate("ChatSettings")}
+            onPress={() =>
+              props.navigation.navigate("ChatSettings", {
+                chat_id: chat_id,
+              })
+            }
           />
         </HeaderButtons>
       ),
