@@ -30,7 +30,6 @@ const ContactsList = (props) => {
   }, []);
 
   useEffect(() => {
-    //loadContacts();
     loadContact();
   }, []);
 
@@ -54,13 +53,23 @@ const ContactsList = (props) => {
     }
   };
 
-  const addUser = async () => {};
+  const displayContacts = () => {
+    return users.map((user, index) => (
+      <View key={index}>
+        <Text>
+          {user.firstname} {user.lastname}
+        </Text>
+        <Text>{user.email}</Text>
+      </View>
+    ));
+  };
 
   return (
     <PageContainer>
       <ScrollView>
         <PageTitle text="Contacts List" />
         <SubHeading text="here's a list of your contacts " />
+        {displayContacts()}
         <SubmitButton
           title="add new contact"
           onPress={() => props.navigation.navigate("AddContact")}

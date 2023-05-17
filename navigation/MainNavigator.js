@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-import ChatListScreen from "../screens/ChatList";
+import ChatList from "../screens/ChatList";
 import ChatSettings from "../screens/ChatSettings";
 import Settings from "../screens/Settings";
 import ChatScreen from "../screens/ChatScreen";
@@ -29,8 +29,8 @@ const TabNavigator = () => {
       }}
     >
       <Tab.Screen
-        name="chatList"
-        component={ChatListScreen}
+        name="ChatList"
+        component={ChatList}
         options={{
           tabBarLabel: "Chats",
           tabBarIcon: ({ color, size }) => (

@@ -1,157 +1,102 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
-  Button,
   TextInput,
-  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  ScrollView,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import PageContainer from "../components/PageContainer";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import CustomHeaderButton from "../components/CustomHeaderButton";
-import { FontAwesome } from "@expo/vector-icons";
-import colors from "../Constants/colors";
-import { searchUsers } from "../utils/actions/userActions";
-import { useSelector } from "react-redux";
-import { ActivityIndicator } from "react-native-web";
-import DataItem from "../components/DataItems";
+import PageTitle from "../components/PageTitle";
+import SubmitButton from "../components/SubmitButton";
+import SubHeading from "../components/SubHeading";
 
-const NewChat = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [users, setUsers] = useState();
-  const [noResults, setNoResults] = useState(false);
-  const [SearchTerm, setSearchTerm] = useState("");
-  const stateData = useSelector((state) => state.auth);
+export default function NewChat({ navigation }) {
+  const [name, setName] = useState("");
+  const [error, setError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    props.navigation.setOptions({
-      headerLeft: () => (
-        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-          <Item title="close" onPress={() => props.navigation.goBack()} />
-        </HeaderButtons>
-      ),
-      headerTitle: "New Chat",
-    });
-  }, []);
+  const onPressButton = async () => {
+    setSubmitted(true);
+    setError("");
 
-  useEffect(() => {
-    const delaySearch = setTimeout(async () => {
-      if (!SearchTerm || SearchTerm === "") {
-        setUsers();
-        setNoResults(false);
-        return;
-      }
-      setIsLoading(true);
-      const results = await searchUsers(SearchTerm, "all", 20, 0);
-      delete results[stateData.userData.userId];
-      setUsers(results);
+    if (!name) {
+      setError("*Must enter a chat name");
+      return;
+    }
 
-      if (Object.keys(results).length === 0) {
-        setNoResults(true);
-      } else {
-        setNoResults(false);
-      }
-      setIsLoading(false);
-    }, 500);
-    return () => clearTimeout(delaySearch);
-  }, [SearchTerm]);
+    console.log(`Chat Name: ${name} . Created!`);
 
-  const userSelected = (userId) => {
-    props.navigation.navigate("ChatListScreen", {
-      selectedUserId: userId,
-    });
+    try {
+      const token = await AsyncStorage.getItem("@session_token");
+      const headers = {
+        "Content-Type": "application/json",
+        "X-Authorization": token,
+      };
+      const response = await fetch("http://localhost:3333/api/1.0.0/chat", {
+        method: "post",
+        headers,
+        body: JSON.stringify({
+          name,
+        }),
+      });
+      const responseJson = await response.json();
+
+      console.log("Chat Created: ", responseJson.chat_id);
+      
+      navigation.navigate("ChatList");
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <PageContainer>
-      <View style={styles.searchContainer}>
-        <FontAwesome name="search" size={15} color={colors.brown} />
-        <TextInput
-          placeholder="Search"
-          style={styles.searchBox}
-          onChangeText={(text) => setSearchTerm(text)}
-        />
-      </View>
+      <ScrollView>
+        <PageTitle text="Create Chat" />
+        <View style={styles.formContainer}>
+          <View style={styles.email}>
+            <SubHeading text=" name: " />
+            <TextInput
+              style={{ height: 40, borderWidth: 1, paddingVertical: 10 }}
+              placeholder=" Enter chat name"
+              onChangeText={(name) => setName(name)}
+              value={name}
+            />
 
-      {isLoading && (
-        <View style={styles.center}>
-          <ActivityIndicator size="large" color={colors.brown} />
-        </View>
-      )}
-      {!isLoading && !noResults && users && (
-        <FlatList
-          data={Object.keys(users)}
-          renderItem={({ item }) => {
-            const userId = item.item;
+            {submitted && !name && (
+              <Text style={styles.error}>*Chat name is required</Text>
+            )}
+          </View>
 
-            const { given_name, family_name, email } = users[item];
-            return (
-              <DataItem
-                title={`${given_name} ${family_name}`}
-                subTitle={email}
-                onPress={() => userSelected(userId)}
-              />
-            );
-          }}
-        />
-      )}
-
-      {!isLoading && noResults && (
-        <View style={styles.center}>
-          <FontAwesome
-            name="exclamation"
-            size={55}
-            color={colors.lightPink}
-            style={styles.NoResult}
+          <SubmitButton
+            title="Create Chat"
+            onPress={onPressButton}
+            style={{ marginTop: 20 }}
           />
-          <Text style={styles.NoResultText}>NoUsersFound</Text>
-        </View>
-      )}
 
-      {!isLoading && !users && (
-        <View style={styles.center}>
-          <FontAwesome
-            name="users"
-            size={55}
-            color={colors.lightPink}
-            style={styles.NoResult}
-          />
-          <Text style={styles.NoResultText}>Search for users</Text>
+          {error && <Text style={styles.error}>{error}</Text>}
         </View>
-      )}
+      </ScrollView>
     </PageContainer>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  searchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: colors.nearlyWhite,
-    height: 40,
-    marginVertical: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
-  },
-  center: {
+  formContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  searchBox: {
-    marginLeft: 10,
-    fontSize: 15,
-    width: "100%",
-  },
-  NoResult: {
+  
+  email: {
+    width: "80%",
     marginBottom: 20,
-  },
-  NoResultText: {
-    color: colors.brown,
-    letterSpacing: 0.3,
-    fontFamily: "regular",
+    },
+  error: {
+    color: "red",
   },
 });
-
-export default NewChat;
