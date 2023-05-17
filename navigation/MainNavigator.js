@@ -9,6 +9,7 @@ import Settings from "../screens/Settings";
 import ChatScreen from "../screens/ChatScreen";
 import Contacts from "../screens/ContactsList";
 import colors from "../Constants/colors";
+import NewChat from "../screens/NewChat";
 
 const stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -63,21 +64,30 @@ const TabNavigator = () => {
 const MainNavigator = (props) => {
   return (
     <stack.Navigator>
-      <stack.Screen
-        name="Home"
-        component={TabNavigator}
-        options={{ headerShown: false }}
-      />
-      <stack.Screen
-        name="ChatScreen"
-        component={ChatScreen}
-        options={{ gestureEnabled: true }}
-      />
-      <stack.Screen
-        name="ChatSettings"
-        component={ChatSettings}
-        options={{ gestureEnabled: true, headerTitle: "Settings" }}
-      />
+      <stack.Group>
+        <stack.Screen
+          name="Home"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+        <stack.Screen
+          name="ChatScreen"
+          component={ChatScreen}
+          options={{ gestureEnabled: true }}
+        />
+        <stack.Screen
+          name="ChatSettings"
+          component={ChatSettings}
+          options={{ gestureEnabled: true, headerTitle: "Settings" }}
+        />
+      </stack.Group>
+
+      <stack.Group screenOptions = {{presentation: 'containedModal'}}>
+        <stack.Screen
+          name="NewChat"
+          component={NewChat}
+        />
+      </stack.Group>
     </stack.Navigator>
   );
 };
