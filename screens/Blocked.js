@@ -8,35 +8,20 @@ import SubHeading from "../components/SubHeading";
 import SubmitButton from "../components/SubmitButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/CustomHeaderButton";
-import { Entypo } from "@expo/vector-icons";
-
-
 
 const ContactsList = (props) => {
   const [contacts, setContacts] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-   useEffect(() => {
-     props.navigation.setOptions({
-       headerRight: () => (
-         <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-           <Item
-             title="Block User"
-             iconName="block"
-             onPress={() => props.navigation.navigate("Blocked")}
-           />
-         </HeaderButtons>
-       ),
-     });
-   }, []);
+
 
   useEffect(() => {
     //loadContacts();
-    loadContact();
+    loadBlocked();
   }, []);
 
-  const loadContact = async () => {
+  const loadBlocked = async () => {
     const token = await AsyncStorage.getItem("@session_token");
     const response = await fetch("http://localhost:3333/api/1.0.0/contacts", {
       method: "get",
@@ -56,32 +41,25 @@ const ContactsList = (props) => {
     }
   };
 
-
-
-  const addUser = async () => {
-
-  }
-
+  const addUser = async () => {};
 
   return (
     <PageContainer>
       <ScrollView>
-        <PageTitle text="Contacts List" />
-        <SubHeading text="here's a list of your contacts " />
+        <SubHeading text="here's a list of your blocked contacts " />
         <SubmitButton
-          title="add new contact"
-          onPress={() => props.navigation.navigate("AddContact")}
+          title="Block contact"
+          onPress={() => props.navigation.navigate("AddBlock")}
           style={{ marginTop: 20 }}
         />
         <SubmitButton
-          title="Remove a contact"
-          onPress={() => props.navigation.navigate("RemoveContact")}
+          title="Unblock a contact"
+          onPress={() => props.navigation.navigate("UnblockContact")}
           style={{ marginTop: 20 }}
         />
       </ScrollView>
     </PageContainer>
   );
-  
 };
 
 const styles = StyleSheet.create({

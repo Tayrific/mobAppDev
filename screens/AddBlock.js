@@ -17,7 +17,33 @@ import PageContainer from "../components/PageContainer";
 import { searchUsers } from "../utils/actions/userActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AddContact = (props) => {
+const blockContact = async (userId) => {
+  const token = await AsyncStorage.getItem("@session_token");
+  const response = await fetch(
+    `http://localhost:3333/api/1.0.0/user/${userId}/block`,
+    {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Authorization": token,
+      },
+    }
+  );
+
+  if (response.ok) {
+    console.log("User blocked successfully");
+  } else if (response.status === 400) {
+    console.log("You can't block yourself");
+  } else if (response.status === 401) {
+    console.log("Unauthorized");
+  } else if (response.status === 404) {
+    console.log("User not found");
+  } else {
+    console.log("Server Error");
+  }
+};
+
+const AddBlock = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState();
   const [noResults, setNoResults] = useState(false);
@@ -31,7 +57,7 @@ const AddContact = (props) => {
           <Item title="close" onPress={() => props.navigation.goBack()} />
         </HeaderButtons>
       ),
-      headerTitle: "Add Contact",
+      headerTitle: "Block Contact",
     });
   }, []);
 
@@ -43,7 +69,7 @@ const AddContact = (props) => {
         return;
       }
       setIsLoading(true);
-      const results = await searchUsers(SearchTerm, "all", 20, 0);
+      const results = await searchUsers(SearchTerm, "contacts", 20, 0);
       delete results[stateData.userData.userId];
       setUsers(results);
 
@@ -56,32 +82,6 @@ const AddContact = (props) => {
     }, 500);
     return () => clearTimeout(delaySearch);
   }, [SearchTerm]);
-
-    const addContact = async (userId) => {
-      const token = await AsyncStorage.getItem("@session_token");
-      const response = await fetch(
-        `http://localhost:3333/api/1.0.0/user/${userId}/contact`,
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Authorization": token,
-          },
-        }
-      );
-
-      if (response.ok) {
-        console.log("Contact added successfully");
-      } else if (response.status === 400) {
-        console.log("You can't add yourself as a contact");
-      } else if (response.status === 401) {
-        console.log("Unauthorized");
-      } else if (response.status === 404) {
-        console.log("Not Found");
-      } else {
-        console.log("Server Error");
-      }
-    };
 
   return (
     <PageContainer>
@@ -103,7 +103,7 @@ const AddContact = (props) => {
         <FlatList
           data={Object.keys(users)}
           renderItem={({ item }) => {
-            const {user_id} = users[item];
+            const { user_id } = users[item];
             console.log(user_id);
 
             const { given_name, family_name, email } = users[item];
@@ -111,7 +111,7 @@ const AddContact = (props) => {
               <DataItem
                 title={`${given_name} ${family_name}`}
                 subTitle={email}
-                onPress={() => addContact(user_id)}
+                onPress={() => blockContact(user_id)}
               />
             );
           }}
@@ -176,4 +176,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddContact;
+export default AddBlock;

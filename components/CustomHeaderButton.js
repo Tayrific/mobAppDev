@@ -1,13 +1,13 @@
 import React from "react";
 import { HeaderButton, Item } from "react-navigation-header-buttons";
 import colors from "../Constants/colors";
-import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 const CustomHeaderButton = (props) => {
     return (
         <HeaderButton
         {...props}
-        IconComponent={Ionicons}
+        IconComponent={Entypo}
         iconSize={30}
         color={props.color ?? colors.brown}
         />

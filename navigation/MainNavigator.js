@@ -11,6 +11,10 @@ import Contacts from "../screens/ContactsList";
 import colors from "../Constants/colors";
 import NewChat from "../screens/NewChat";
 import AddContact from "../screens/AddContact";
+import RemoveContact from "../screens/RemoveContact";
+import Blocked from "../screens/Blocked";
+import AddBlock from "../screens/AddBlock";
+import UnblockContact from "../screens/UnblockContact";
 
 const stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -86,6 +90,10 @@ const MainNavigator = (props) => {
       <stack.Group screenOptions={{ presentation: "containedModal" }}>
         <stack.Screen name="NewChat" component={NewChat} />
         <stack.Screen name="AddContact" component={AddContact} />
+        <stack.Screen name="RemoveContact" component={RemoveContact} />
+        <stack.Screen name="Blocked" component={Blocked} />
+        <stack.Screen name="AddBlock" component={AddBlock} />
+        <stack.Screen name="UnblockContact" component={UnblockContact} />
       </stack.Group>
     </stack.Navigator>
   );
